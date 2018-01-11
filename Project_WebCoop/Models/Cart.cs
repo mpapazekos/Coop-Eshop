@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 
 namespace Project_WebCoop.Models
 {
-    public class Order
+    public class Cart
     {
-        public int OrderID { get; set; }
-        public DateTime OrderDate { get; set; }
     }
 }
