@@ -9,9 +9,12 @@ namespace Project_WebCoop.Models
     public class Merchant 
     {
   
-        public int ID { get; set; }
+        public int MerchantID { get; set; }
 
-        [Required]
+        public ApplicationUser User { get; set; }
+        
         public string CompanyName { get; set; }
+
+        public string SSN { get; set; }
     }
 }

@@ -7,9 +7,9 @@ namespace Project_WebCoop.Models
 {
     public class ProductSale
     {
-        public int ClientID { get; set; }
+        public Individual Buyer { get; set; }
 
-        public int OrderID { get; set; }
+        public Product Product { get; set; }
 
         public DateTime SaleDate { get; set; }
     }

@@ -23,12 +23,9 @@ namespace Project_WebCoop.Models
         [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive value.")]
         public decimal Price { get; set; }
-
-        [Required(ErrorMessage = "Please specify category.")]
-        public string CategoryID { get; set; }
-
+     
         [Required]
-        public string ManufacturerID { get; set; }
+        public Merchant Merchant  { get; set; }
 
         public bool IsLive { get; set; }
 
