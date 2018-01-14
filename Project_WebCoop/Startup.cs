@@ -33,9 +33,13 @@ namespace Project_WebCoop
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddTransient<IProductRepository, FakeProductRepository>();
+           
+            
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<ICartDetailsRepository, CartDetailsRepository>();
 
             services.AddMvc();
         }
@@ -66,7 +70,7 @@ namespace Project_WebCoop
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            SeedDataIdentity.EnsurePopulated(app);
+            //SeedDataIdentity.EnsurePopulated(app);
         }
     }
 }

@@ -12,9 +12,10 @@ using System;
 namespace Project_WebCoop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180113191910_TestingModels")]
+    partial class TestingModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,7 +228,7 @@ namespace Project_WebCoop.Data.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("Project_WebCoop.Models.Individual", b =>
@@ -302,7 +303,7 @@ namespace Project_WebCoop.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("Project_WebCoop.Models.Product", b =>
@@ -342,7 +343,7 @@ namespace Project_WebCoop.Data.Migrations
 
                     b.HasIndex("WishListID");
 
-                    b.ToTable("Products");
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("Project_WebCoop.Models.ProductSale", b =>
@@ -372,7 +373,7 @@ namespace Project_WebCoop.Data.Migrations
 
                     b.HasKey("WishListID");
 
-                    b.ToTable("WishLists");
+                    b.ToTable("WishList");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -438,7 +439,7 @@ namespace Project_WebCoop.Data.Migrations
                         .HasForeignKey("ProductID");
 
                     b.HasOne("Project_WebCoop.Models.ApplicationUser", "User")
-                        .WithMany("CartDetails")
+                        .WithMany("Cart")
                         .HasForeignKey("UserId");
                 });
 

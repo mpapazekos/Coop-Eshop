@@ -9,7 +9,7 @@ namespace Project_WebCoop.Models
     public class WishList
     {
         [BindNever]
-        public int WishlistID { get; set; }
+        public int WishListID { get; set; }
 
         [BindNever]
         public ApplicationUser User { get; set; }

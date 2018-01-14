@@ -10,6 +10,17 @@ namespace Project_WebCoop.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Individual> Individuals { get; set; }
+        public DbSet<Merchant> Merchant { get; set; }
+
+        public DbSet<ProductSale> Sales { get; set; }
+        public DbSet<Product> Products { get; set; }
+        
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<CartDetails> CartDetails { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
+        
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
