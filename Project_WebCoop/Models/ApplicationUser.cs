@@ -15,6 +15,6 @@ namespace Project_WebCoop.Models
 
         public ICollection<Order> Orders { get; set; }
         public ICollection<CartDetails> CartDetails { get; set; }
-        public WishList WishList { get; set; }
+        //public WishList WishList { get; set; }
     }
 }

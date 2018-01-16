@@ -70,6 +70,7 @@ namespace Project_WebCoop
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            //SeedData.EnsurePopulated(app);
             //SeedDataIdentity.EnsurePopulated(app);
         }
     }

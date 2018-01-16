@@ -12,8 +12,8 @@ using System;
 namespace Project_WebCoop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180114143718_Add_DbSets")]
-    partial class Add_DbSets
+    [Migration("20180114174507_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -168,8 +168,6 @@ namespace Project_WebCoop.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
-                    b.Property<int?>("WishListID");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -179,10 +177,6 @@ namespace Project_WebCoop.Data.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("WishListID")
-                        .IsUnique()
-                        .HasFilter("[WishListID] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -264,7 +258,7 @@ namespace Project_WebCoop.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Merchant");
+                    b.ToTable("Merchants");
                 });
 
             modelBuilder.Entity("Project_WebCoop.Models.Order", b =>
@@ -371,7 +365,11 @@ namespace Project_WebCoop.Data.Migrations
                     b.Property<int>("WishListID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("WishListID");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("WishLists");
                 });
@@ -419,13 +417,6 @@ namespace Project_WebCoop.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Project_WebCoop.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("Project_WebCoop.Models.WishList", "WishList")
-                        .WithOne("User")
-                        .HasForeignKey("Project_WebCoop.Models.ApplicationUser", "WishListID");
                 });
 
             modelBuilder.Entity("Project_WebCoop.Models.CartDetails", b =>
@@ -490,6 +481,13 @@ namespace Project_WebCoop.Data.Migrations
                     b.HasOne("Project_WebCoop.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductID");
+                });
+
+            modelBuilder.Entity("Project_WebCoop.Models.WishList", b =>
+                {
+                    b.HasOne("Project_WebCoop.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

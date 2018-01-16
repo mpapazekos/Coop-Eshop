@@ -10,6 +10,10 @@
     <Compile Remove="Data\Migrations\20180112120639_TestingModels.Designer.cs" />
     <Compile Remove="Data\Migrations\20180112122317_TestingModels.cs" />
     <Compile Remove="Data\Migrations\20180112122317_TestingModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180114143718_Add_DbSets.cs" />
+    <Compile Remove="Data\Migrations\20180114143718_Add_DbSets.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180114174318_SeedData.cs" />
+    <Compile Remove="Data\Migrations\20180114174318_SeedData.Designer.cs" />
   </ItemGroup>
 
 

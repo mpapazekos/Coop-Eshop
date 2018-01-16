@@ -21,5 +21,22 @@ namespace Project_WebCoop.Models
         public decimal Cost { get; set; }
 
         public decimal Discount { get; set; }
+ 
+        public CartDetails() { }
+
+        public CartDetails(Product p, int quantity)
+        {
+            Product = p;
+            Quantity = quantity;
+        }
+
+
+        public CartDetails(Product p, int quantity, decimal cost, ApplicationUser user)
+        {
+            Product = p;
+            Quantity = quantity;
+            Cost = cost;
+            User = user;
+        }       
     }
 }

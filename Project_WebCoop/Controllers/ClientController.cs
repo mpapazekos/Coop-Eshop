@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Project_WebCoop.Services;
 
 namespace Project_WebCoop.Controllers
 {
@@ -14,6 +15,5 @@ namespace Project_WebCoop.Controllers
         {
             return View();
         }
-
     }
 }

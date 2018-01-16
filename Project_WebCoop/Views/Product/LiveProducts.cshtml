@@ -1,7 +1,61 @@
-﻿
+﻿@model LiveProductsViewModel
+
 @{
     ViewData["Title"] = "LiveProducts";
 }
 
+
 <h2>LiveProducts</h2>
+
+<div class="alert alert-success alert-dismissable fade in">
+    <a id="CartAddition" href="#" class="close" data-dismiss="alert" aria-label="close"></a>
+</div>
+
+<section class="container-fluid">
+    <row class="row">
+        <column class="col-md-2"></column>
+        <column class="col-md-6 ">
+            @foreach (var product in Model.Products)
+            {
+                <card class="card" style="border-color:rebeccapurple;">
+                    <row class="row ">
+
+                        <column class="col-md-2">
+                            <img alt="Image goes here..">
+                        </column>
+
+                        <column class="col-md-10 px-3">
+                            <div class="card-block px-3">
+                                <name class=" card-header bg-primary">
+                                    @product.Name
+                                </name>
+                                <p class="card-text bg-warning">@product.Description</p>
+                                <supplier class="text-center bg-info">
+                                    @product.Merchant.CompanyName
+                                </supplier>
+                            </div>
+
+                            <div class="card-footer">
+                                @*<a asp-controller="Cart" asp-action="AddtoCart" id="cartButton" class="btn btn-success"  asp-route-productId="@product.ProductID">Add to Cart</a>*@
+                                <a class="cartAdd btn btn-success" data-url="@Url.Action("AddToCart","Cart", new { productId = product.ProductID })">Add to Cart</a>
+                            </div>
+                        </column>
+                    </row>
+                </card>
+                <br />
+            }
+        </column>
+        <column class="col-md"></column>
+    </row>
+
+    <row class="row">
+        <column class="col-md-2"></column>
+        <nav class="btn-group">
+            @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+            {
+                <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" @*asp-route="category" asp-route-category="@Model.CurrentCategory" *@ asp-route-productPage="@i">@i</a>
+            }
+        </nav>
+    </row>
+</section>
 

@@ -17,7 +17,8 @@ namespace Project_WebCoop.Services
             _context = context;
         }
 
-        public IQueryable<Product> Products => _context.Products.Include(prod => prod.Category);
+        public IQueryable<Product> Products => _context.Products.Include(prod => prod.Category)
+                                                                .Include(prod => prod.Merchant);
 
         public void AddNewProduct(Product product)
         {
