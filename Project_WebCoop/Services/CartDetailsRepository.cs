@@ -18,8 +18,8 @@ namespace Project_WebCoop.Services
             _context = context;
         }
 
-        public IQueryable<CartDetails> CartDetails => _context.CartDetails.Include(ci => ci.Product)
-                                                                          .Include(ci => ci.User);
+        public IQueryable<CartDetails> CartDetails => _context.CartDetails.Include(ci => ci.Product);
+                                                                          
 
 
         public void DeleteCartDetails(CartDetails item)
