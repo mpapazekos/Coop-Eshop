@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Project_WebCoop.Data;
 using Project_WebCoop.Models;
@@ -17,8 +18,9 @@ namespace Project_WebCoop.Services
             _context = context;
         }
 
-        public IQueryable<CartDetails> CartDetails => _context.CartDetails.Include(dets => dets.Product)
-                                                                          .Include(dets => dets.User);
+        public IQueryable<CartDetails> CartDetails => _context.CartDetails.Include(ci => ci.Product)
+                                                                          .Include(ci => ci.User);
+
 
         public void DeleteCartDetails(CartDetails item)
         {           
@@ -26,6 +28,7 @@ namespace Project_WebCoop.Services
             _context.SaveChanges();
         }
 
+   
         public void StoreCartDetails(CartDetails item)
         {
             _context.Add(item);

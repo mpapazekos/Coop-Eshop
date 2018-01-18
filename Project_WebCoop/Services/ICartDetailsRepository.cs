@@ -10,9 +10,10 @@ namespace Project_WebCoop.Services
     {
         IQueryable<CartDetails> CartDetails { get; }
 
+
         void StoreCartDetails(CartDetails item);
         void UpdateCartDetails(CartDetails item);
-        void DeleteCartDetails(CartDetails item);
+        void  DeleteCartDetails(CartDetails item);
        
     }
 }

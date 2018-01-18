@@ -12,6 +12,7 @@ using Project_WebCoop.Services;
 
 namespace Project_WebCoop.Controllers
 {
+    //[Route("api/cartdetails")]
     public class CartController : Controller
     {
         private ICartDetailsRepository _cartRepository;
@@ -55,7 +56,7 @@ namespace Project_WebCoop.Controllers
                 var product = _productRepository.Products.SingleOrDefault(p => p.ProductID == productId);
 
                 _cartRepository.StoreCartDetails(new CartDetails(product, 1, product.Price, user));
-            }
+            } 
             else
             {
                 cartItem.Quantity++;

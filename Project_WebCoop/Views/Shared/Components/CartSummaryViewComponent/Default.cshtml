@@ -1,15 +1,8 @@
 ﻿@model IEnumerable<CartDetails>
 
 @{
-    ViewData["Title"] = "CartDetails";
-    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+    Layout = null;
 }
-
-<h2>CartDetails</h2>
-
-@*<div id="cartSummary">
-        @await Component.InvokeAsync("CartSummary", new { userId = Model });
-    </div>*@
 
 <table class="table">
     <thead>
@@ -41,12 +34,12 @@
                 </td>
                 <td>
                     <group class="btn-group">
-                        <button class="subtractOne btn btn-warning" data-id="@item.CartDetailsID">-</button>
+                        <button  class="subtractOne btn btn-warning" data-id="@item.CartDetailsID">-</button>
                         <button id="quantity-@item.CartDetailsID" class="btn btn-primary" style="background-color:white">
                             @Html.DisplayFor(modelItem => item.Quantity)
                         </button>
                         <button data-id="@item.CartDetailsID" class="addOne btn btn-success">+</button>
-                    </group>
+                    </group>                    
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Cost)
@@ -58,36 +51,3 @@
         }
     </tbody>
 </table>
-
-@section Scripts{
-
-    <script>
-        $(function () {
-
-            $(".subtractOne").on("click", function () {
-                var id = $(this).attr("data-id");
-                removeDetails(id);
-            });
-
-            let removeDetails = (id) => {
-                $.ajax({
-
-                    url: `api/CartDetails/subtract/${id}`,
-                    contentType: "application/json",
-                    method: "PUT",
-                    success: function (data) {
-                        if (data.quantity !== 0) {
-
-                            $("#quantity-" + data.id)
-                        }
-
-                    }
-
-                });
-            }
-
-
-        });
-    </script>
-}
-
