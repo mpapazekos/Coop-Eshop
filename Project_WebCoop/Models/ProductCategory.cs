@@ -9,6 +9,7 @@ namespace Project_WebCoop.Models
 {
     public class ProductCategory
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductCategoryID { get; set; }
 
         public int ProductID { get; set; }

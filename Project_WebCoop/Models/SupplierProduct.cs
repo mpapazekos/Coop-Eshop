@@ -9,6 +9,7 @@ namespace Project_WebCoop.Models
 {
     public class SupplierProduct
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SupplierProductID { get; set; }
 
         public string UserID { get; set; }

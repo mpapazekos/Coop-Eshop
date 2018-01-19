@@ -11,7 +11,7 @@ using System;
 namespace Project_WebCoop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180119172725_ManyToManyID")]
+    [Migration("20180119174754_ManyToManyID")]
     partial class ManyToManyID
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -346,7 +346,8 @@ namespace Project_WebCoop.Data.Migrations
 
             modelBuilder.Entity("Project_WebCoop.Models.ProductCategory", b =>
                 {
-                    b.Property<int>("ProductCategoryID");
+                    b.Property<int>("ProductCategoryID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ProductID");
 
@@ -367,7 +368,8 @@ namespace Project_WebCoop.Data.Migrations
 
             modelBuilder.Entity("Project_WebCoop.Models.SupplierProduct", b =>
                 {
-                    b.Property<int>("SupplierProductID");
+                    b.Property<int>("SupplierProductID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("UserID");
 

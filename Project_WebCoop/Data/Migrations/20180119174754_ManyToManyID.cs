@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
@@ -54,13 +55,15 @@ namespace Project_WebCoop.Data.Migrations
                 name: "SupplierProductID",
                 table: "SupplierProducts",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0)
+                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             migrationBuilder.AddColumn<int>(
                 name: "ProductCategoryID",
                 table: "ProductCategories",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0)
+                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_SupplierProducts",
