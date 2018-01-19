@@ -9,6 +9,8 @@ namespace Project_WebCoop.Models
 {
     public class ProductCategory
     {
+        public int ProductCategoryID { get; set; }
+
         public int ProductID { get; set; }
 
         public int CategoryID { get; set; }

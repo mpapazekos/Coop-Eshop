@@ -24,14 +24,14 @@ namespace Project_WebCoop.Services
 
             //ctx.Database.Migrate();
 
-            ApplicationUser tempUser = await userManager.FindByNameAsync("merchant@merchant.com");
+            ApplicationUser merchant = await userManager.FindByNameAsync("merchant@merchant.com");
 
             // Add a mockup Organization
             if (!ctx.Organizations.Any())
             {
                 ctx.Organizations.Add(new Organization
                 {
-                    User = tempUser,
+                    User = merchant,
                     CompanyName = "SportsStore",
                     SSN = "033-76-6079"
                 });

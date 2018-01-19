@@ -42,7 +42,7 @@ namespace Project_WebCoop.Data
 
             // Create Many to Many Relationship Product-Category
             builder.Entity<ProductCategory>()
-                .HasKey(t => new { t.ProductID, t.CategoryID });
+                .HasKey(t => new { t.ProductCategoryID, t.ProductID, t.CategoryID });
 
             builder.Entity<ProductCategory>()
                 .HasOne(pc => pc.Category)
@@ -56,7 +56,7 @@ namespace Project_WebCoop.Data
 
             // Create Many to Many Relationship: User-Product
             builder.Entity<SupplierProduct>()
-                .HasKey(t => new { t.UserID, t.ProductID });
+                .HasKey(t => new { t.SupplierProductID, t.UserID, t.ProductID });
 
             builder.Entity<SupplierProduct>()
                .HasOne(sp => sp.Product)

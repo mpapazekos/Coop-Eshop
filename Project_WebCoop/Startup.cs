@@ -71,7 +71,7 @@ namespace Project_WebCoop
             });
 
             SeedDataIdentity.EnsurePopulated(app);
-            SeedData.EnsurePopulated(app);
+            //SeedData.EnsurePopulated(app);
         }
     }
 }
