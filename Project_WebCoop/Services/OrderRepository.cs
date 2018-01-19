@@ -17,7 +17,7 @@ namespace Project_WebCoop.Services
             _context = context;
         }
 
-        public IQueryable<Order> Orders => _context.Orders.Include(order => order.OrderItems)
+        public IQueryable<Order> Orders => _context.Orders.Include(order => order.OrderHistory)
                                                            .Include(order => order.Cart);
 
         public void DeleteOrder(Order order)

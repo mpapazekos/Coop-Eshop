@@ -17,12 +17,12 @@ namespace Project_WebCoop.Services
             _context = context;
         }
 
-        public IQueryable<Product> Products => _context.Products.Include(prod => prod.Category)
-                                                                .Include(prod => prod.Merchant);
+        public IQueryable<Product> Products => _context.Products.Include(prod => prod.ProductCategories)
+                                                                .Include(prod => prod.SupplierProducts);
 
         public void AddNewProduct(Product product)
         {
-            _context.AttachRange(product.Category);
+            _context.AttachRange(product.ProductCategories, product.SupplierProducts);
             _context.Products.Add(product);
             _context.SaveChanges();
         }

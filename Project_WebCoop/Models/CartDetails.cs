@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,8 +11,10 @@ namespace Project_WebCoop.Models
     {
         public int CartDetailsID { get; set; }
 
+        [Required]
         public Product Product { get; set; }
 
+        [Required]
         public Cart Cart { get; set; }
 
         public int Quantity { get; set; }
@@ -22,13 +25,5 @@ namespace Project_WebCoop.Models
 
         public DateTime DateRemoved { get; set; }
 
-
-        public CartDetails() { }
-
-        public CartDetails(Product p, int quantity)
-        {
-            Product = p;
-            Quantity = quantity;
-        }   
     }
 }

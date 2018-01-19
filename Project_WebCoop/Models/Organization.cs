@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 
 namespace Project_WebCoop.Models
 {
-    public class Merchant 
+    public class Organization 
     {
-        [BindNever]
-        public int MerchantID { get; set; }
+        public int OrganizationID { get; set; }
 
-        [BindNever]
+        [Required]
         public ApplicationUser User { get; set; }
         
+        [Required]
         public string CompanyName { get; set; }
 
+        [Required]
         public string SSN { get; set; }
     }
 }

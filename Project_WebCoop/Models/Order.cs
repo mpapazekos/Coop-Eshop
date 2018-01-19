@@ -11,10 +11,12 @@ namespace Project_WebCoop.Models
     {
         public int OrderID { get; set; }
 
+        [Required]
         public Cart Cart { get; set; }
 
-        public DateTime OrderDate { get; set; }
-        
+        [Required]
         public OrderHistory OrderHistory{ get; set; }
+
+        public DateTime OrderDate { get; set; }
     }
 }

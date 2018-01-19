@@ -28,7 +28,6 @@ namespace Project_WebCoop.Controllers
             return View(new LiveProductsViewModel {
 
                 Products = _repository.Products
-                              .Where(p => p.IsLive == true)
                               .Skip((productPage - 1) * PageSize)
                               .Take(PageSize),
                 PagingInfo = new PagingInfo

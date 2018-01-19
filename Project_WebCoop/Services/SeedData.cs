@@ -13,6 +13,7 @@ namespace Project_WebCoop.Services
 {
     public static class SeedData
     {
+
         public async static void EnsurePopulated(IApplicationBuilder app)
         {
             ApplicationDbContext ctx = app.ApplicationServices
@@ -25,17 +26,20 @@ namespace Project_WebCoop.Services
 
             ApplicationUser tempUser = await userManager.FindByNameAsync("merchant@merchant.com");
 
-            if (!ctx.Merchants.Any())
+            // Add a mockup Organization
+            if (!ctx.Organizations.Any())
             {
-                ctx.Merchants.Add(new Merchant
+                ctx.Organizations.Add(new Organization
                 {
+                    User = tempUser,
                     CompanyName = "SportsStore",
-                    User = tempUser
+                    SSN = "033-76-6079"
                 });
 
                 ctx.SaveChanges();
             }
 
+            // Populate Category with mockups
             if (!ctx.Categories.Any())
             {
                 ctx.Categories.AddRange(
@@ -47,120 +51,115 @@ namespace Project_WebCoop.Services
                 ctx.SaveChanges();
             }
 
+            Category WaterSportsCtg = ctx.Categories.SingleOrDefault(c => c.CategoryName == "WaterSports");
+            Category SoccerCtg = ctx.Categories.SingleOrDefault(c => c.CategoryName == "Soccer");
+            Category ChessCtg = ctx.Categories.SingleOrDefault(c => c.CategoryName == "Chess");
+
+            Organization SportStore = ctx.Organizations.SingleOrDefault(m => m.CompanyName == "SportStore");
+
+
+
             if (!ctx.Products.Any())
             {
-                Category WaterSportsCtg = ctx.Categories.SingleOrDefault(c => c.CategoryName == "WaterSports");
-                Category SoccerCtg = ctx.Categories.SingleOrDefault(c => c.CategoryName == "Soccer");
-                Category ChessCtg = ctx.Categories.SingleOrDefault(c => c.CategoryName == "Chess");
+                // Create Mockup Products
+                Product Kayak = new Product("Kayak", "A boat for one person");
+                Product LifeJacket = new Product("Lifejacket", "Protective and fashionable");
+                Product SoccerBall = new Product("Soccer Ball", "FIFA-approved size and weight");
+                Product CornerFlags = new Product("Corner Flags", "Give your playing field a professional touch");
+                Product Stadium = new Product("Stadium", "Flat-packed 35,000-seat stadium");
+                Product ThinkingCap = new Product("Thinking Cap", "Improve brain efficiency by 75%");
+                Product UnsteadyChair = new Product("Unsteady Chair", "Secretly give your opponent a disadvantage");
+                Product HumanChessBoard = new Product("Human Chess Board", "A fun game for the family");
+                Product BlingBling = new Product("Bling-Bling King", "Gold-plated, diamond-studded King");
 
-                Merchant SportStore = ctx.Merchants.SingleOrDefault(m => m.CompanyName == "SportStore");
+                List<Product> MockUpProducts = new List<Product> {
+                   Kayak,
+                   LifeJacket,
+                   SoccerBall,
+                   CornerFlags,
+                   Stadium,
+                   ThinkingCap,
+                   UnsteadyChair,
+                   HumanChessBoard,
+                   BlingBling
+                };
 
-                ctx.Products.AddRange(
-                    new Product
+                // Populate Products with Mmockups
+                ctx.Products.AddRange(MockUpProducts);
+
+                // Populate Product-Category Table
+                ctx.ProductCategories.AddRange(
+                    new ProductCategory
                     {
-                        Name = "Kayak",
-                        Description = "A boat for one person",
-                        Category = WaterSportsCtg,                        
-                        IsLive = true,                       
-                        Price = 275,
-                        BoughtPrice = 275 / 3,                        
-                        Availability = Availability.Available,
-                        Merchant = SportStore                          
+                        Product = Kayak,
+                        Category = WaterSportsCtg
                     },
-                    new Product
+                    new ProductCategory
                     {
-                        Name = "Lifejacket",
-                        Description = "Protective and fashionable",
-                        Category = WaterSportsCtg,
-                        IsLive = true,
-                        Price = 48.95m,
-                        BoughtPrice = 48.95m / 3,
-                        Availability = Availability.Available,
-                        Merchant = SportStore
+                        Product = LifeJacket,
+                        Category = WaterSportsCtg
                     },
-                    new Product
+                    new ProductCategory
                     {
-                        Name = "Soccer Ball",
-                        Description = "FIFA-approved size and weight",
-                        Category = SoccerCtg,
-                        IsLive = true,
-                        Price = 19.50m,
-                        BoughtPrice = 19.50m / 3,
-                        Availability = Availability.Available,
-                        Merchant = SportStore
+                        Product = SoccerBall,
+                        Category = SoccerCtg
                     },
-                    new Product
+                    new ProductCategory
                     {
-                        Name = "Corner Flags",
-                        Description = "Give your playing field a professional touch",
-                        Category = SoccerCtg,
-                        IsLive = true,
-                        Price = 34.95m,
-                        BoughtPrice = 34.95m / 3,
-                        Availability = Availability.Available,
-                        Merchant = SportStore
+                        Product = CornerFlags,
+                        Category = SoccerCtg
                     },
-                    new Product
+                    new ProductCategory
                     {
-                        Name = "Stadium",
-                        Description = "Flat-packed 35,000-seat stadium",
-                        Category = SoccerCtg,
-                        IsLive = true,
-                        Price = 79500,
-                        BoughtPrice = 79500 / 3,
-                        Availability = Availability.Available,
-                        Merchant = SportStore
+                        Product = Stadium,
+                        Category = SoccerCtg
                     },
-                    new Product
+                    new ProductCategory
                     {
-                        Name = "Thinking Cap",
-                        Description = "Improve brain efficiency by 75%",
-                        Category = ChessCtg,
-                        IsLive = true,
-                        Price = 16,
-                        BoughtPrice = 16 / 3,
-                        Availability = Availability.Available,
-                        Merchant = SportStore
+                        Product = ThinkingCap,
+                        Category = ChessCtg
                     },
-                    new Product
+                    new ProductCategory
                     {
-                        Name = "Unsteady Chair",
-                        Description = "Secretly give your opponent a disadvantage",
-                        Category = ChessCtg,
-                        IsLive = true,
-                        Price = 29.95m,
-                        BoughtPrice = 29.95m / 3,
-                        Availability = Availability.Available,
-                        Merchant = SportStore
+                        Product = UnsteadyChair,
+                        Category = ChessCtg
                     },
-                    new Product
+                    new ProductCategory
                     {
-                        Name = "Human Chess Board",
-                        Description = "A fun game for the family",                 
-                        Category = ChessCtg,
-                        IsLive = true,
-                        Price = 75,
-                        BoughtPrice = 75/ 3,
-                        Availability = Availability.Available,
-                        Merchant =SportStore
+                        Product = HumanChessBoard,
+                        Category = ChessCtg
                     },
-                    new Product
+                    new ProductCategory
                     {
-                        Name = "Bling-Bling King",
-                        Description = "Gold-plated, diamond-studded King",
-                        Category = ChessCtg,
-                        IsLive = true,
-                        Price = 1200,
-                        BoughtPrice = 1200 / 3,
-                        Availability = Availability.Available,
-                        Merchant = SportStore
+                        Product = BlingBling,
+                        Category = ChessCtg
                     }
                 );
 
+                // Populate Supplier-Product Table with mockups.
+
+                List<SupplierProduct> MockUpSupplierProducts = new List<SupplierProduct>();
+                Random rand = new Random();
+
+                foreach (var item in MockUpProducts)
+                {
+                    MockUpSupplierProducts.Add(new SupplierProduct
+                    {
+                        Supplier = SportStore.User,
+                        Product = item,
+                        IsLive = true,
+                        BasePrice = rand.Next(30, 2500),
+                        Availability = "Available"
+                    });
+                }
+
+                ctx.SupplierProducts.AddRange(MockUpSupplierProducts);
+
                 ctx.SaveChanges();
             }
+
         }
 
-        
+
     }
 }

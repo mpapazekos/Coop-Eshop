@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,12 +9,11 @@ namespace Project_WebCoop.Models
 {
     public class WishList
     {
-        //[BindNever]
-        //public int WishListID { get; set; }
+        public int WishListID { get; set; }
 
-        //[BindNever]
-        //public ApplicationUser User { get; set; }
+        [Required]
+        public ApplicationUser User { get; set; }
 
-        //public ICollection<Product> WishItems { get; set; }
+        public ICollection<Product> WishItems { get; set; }
     }
 }

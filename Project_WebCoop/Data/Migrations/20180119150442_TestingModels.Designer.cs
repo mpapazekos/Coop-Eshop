@@ -6,14 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Project_WebCoop.Data;
-using Project_WebCoop.Models;
 using System;
 
 namespace Project_WebCoop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180114174507_SeedData")]
-    partial class SeedData
+    [Migration("20180119150442_TestingModels")]
+    partial class TestingModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -168,6 +167,8 @@ namespace Project_WebCoop.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
+                    b.Property<int?>("WishListID");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -178,7 +179,27 @@ namespace Project_WebCoop.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("WishListID")
+                        .IsUnique()
+                        .HasFilter("[WishListID] IS NOT NULL");
+
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Project_WebCoop.Models.Cart", b =>
+                {
+                    b.Property<int>("CartID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClientId")
+                        .IsRequired();
+
+                    b.HasKey("CartID");
+
+                    b.HasIndex("ClientId")
+                        .IsUnique();
+
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Project_WebCoop.Models.CartDetails", b =>
@@ -186,25 +207,27 @@ namespace Project_WebCoop.Data.Migrations
                     b.Property<int>("CartDetailsID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("Cost");
+                    b.Property<int>("CartID");
 
-                    b.Property<decimal>("Discount");
+                    b.Property<DateTime>("DateAdded");
 
-                    b.Property<int?>("OrderID");
+                    b.Property<DateTime>("DateRemoved");
 
-                    b.Property<int?>("ProductID");
+                    b.Property<int?>("OrderHistoryID");
+
+                    b.Property<int>("ProductID");
 
                     b.Property<int>("Quantity");
 
-                    b.Property<string>("UserId");
+                    b.Property<decimal>("UnitPrice");
 
                     b.HasKey("CartDetailsID");
 
-                    b.HasIndex("OrderID");
+                    b.HasIndex("CartID");
+
+                    b.HasIndex("OrderHistoryID");
 
                     b.HasIndex("ProductID");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("CartDetails");
                 });
@@ -214,7 +237,8 @@ namespace Project_WebCoop.Data.Migrations
                     b.Property<int>("CategoryID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CategoryName");
+                    b.Property<string>("CategoryName")
+                        .IsRequired();
 
                     b.Property<string>("Description");
 
@@ -230,11 +254,14 @@ namespace Project_WebCoop.Data.Migrations
                     b.Property<int>("IndividualID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("IndividualID");
 
@@ -243,61 +270,56 @@ namespace Project_WebCoop.Data.Migrations
                     b.ToTable("Individuals");
                 });
 
-            modelBuilder.Entity("Project_WebCoop.Models.Merchant", b =>
-                {
-                    b.Property<int>("MerchantID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CompanyName");
-
-                    b.Property<string>("SSN");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("MerchantID");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Merchants");
-                });
-
             modelBuilder.Entity("Project_WebCoop.Models.Order", b =>
                 {
                     b.Property<int>("OrderID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address1")
-                        .IsRequired();
+                    b.Property<int>("CartID");
 
-                    b.Property<string>("Address2");
+                    b.Property<DateTime>("OrderDate");
 
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<string>("City")
-                        .IsRequired();
-
-                    b.Property<bool>("GiftWrap");
-
-                    b.Property<bool>("IsShipped");
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<string>("State")
-                        .IsRequired();
-
-                    b.Property<decimal>("TotalCost");
-
-                    b.Property<int>("UserID");
-
-                    b.Property<string>("Zip")
-                        .IsRequired();
+                    b.Property<int>("OrderHistoryID");
 
                     b.HasKey("OrderID");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("CartID");
+
+                    b.HasIndex("OrderHistoryID")
+                        .IsUnique();
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Project_WebCoop.Models.OrderHistory", b =>
+                {
+                    b.Property<int>("OrderHistoryID")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("OrderHistoryID");
+
+                    b.ToTable("OrderHistories");
+                });
+
+            modelBuilder.Entity("Project_WebCoop.Models.Organization", b =>
+                {
+                    b.Property<int>("OrganizationID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired();
+
+                    b.Property<string>("SSN")
+                        .IsRequired();
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("OrganizationID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Organizations");
                 });
 
             modelBuilder.Entity("Project_WebCoop.Models.Product", b =>
@@ -305,59 +327,59 @@ namespace Project_WebCoop.Data.Migrations
                     b.Property<int>("ProductID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Availability");
-
-                    b.Property<decimal>("BoughtPrice");
-
-                    b.Property<int>("CategoryID");
-
                     b.Property<string>("Description")
                         .IsRequired();
 
                     b.Property<string>("ImagePath");
 
-                    b.Property<bool>("IsLive");
-
-                    b.Property<int>("MerchantID");
-
                     b.Property<string>("Name")
                         .IsRequired();
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<int>("QuantityInStock");
 
                     b.Property<int?>("WishListID");
 
                     b.HasKey("ProductID");
-
-                    b.HasIndex("CategoryID");
-
-                    b.HasIndex("MerchantID");
 
                     b.HasIndex("WishListID");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Project_WebCoop.Models.ProductSale", b =>
+            modelBuilder.Entity("Project_WebCoop.Models.ProductCategory", b =>
                 {
-                    b.Property<int>("ProductSaleID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("ProductID");
 
-                    b.Property<int?>("BuyerIndividualID");
+                    b.Property<int>("CategoryID");
 
-                    b.Property<int?>("ProductID");
+                    b.Property<DateTime>("FromDate");
 
-                    b.Property<DateTime>("SaleDate");
+                    b.Property<DateTime>("ThroughDate");
 
-                    b.HasKey("ProductSaleID");
+                    b.HasKey("ProductID", "CategoryID");
 
-                    b.HasIndex("BuyerIndividualID");
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("ProductCategory");
+                });
+
+            modelBuilder.Entity("Project_WebCoop.Models.SupplierProduct", b =>
+                {
+                    b.Property<string>("UserID");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<string>("Availability");
+
+                    b.Property<decimal>("BasePrice");
+
+                    b.Property<bool>("IsLive");
+
+                    b.Property<decimal>("SalePrice");
+
+                    b.HasKey("UserID", "ProductID");
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("Sales");
+                    b.ToTable("SupplierProduct");
                 });
 
             modelBuilder.Entity("Project_WebCoop.Models.WishList", b =>
@@ -365,11 +387,7 @@ namespace Project_WebCoop.Data.Migrations
                     b.Property<int>("WishListID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("WishListID");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("WishLists");
                 });
@@ -419,75 +437,98 @@ namespace Project_WebCoop.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Project_WebCoop.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("Project_WebCoop.Models.WishList", "WishList")
+                        .WithOne("User")
+                        .HasForeignKey("Project_WebCoop.Models.ApplicationUser", "WishListID");
+                });
+
+            modelBuilder.Entity("Project_WebCoop.Models.Cart", b =>
+                {
+                    b.HasOne("Project_WebCoop.Models.ApplicationUser", "Client")
+                        .WithOne("Cart")
+                        .HasForeignKey("Project_WebCoop.Models.Cart", "ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Project_WebCoop.Models.CartDetails", b =>
                 {
-                    b.HasOne("Project_WebCoop.Models.Order", "Order")
-                        .WithMany("Details")
-                        .HasForeignKey("OrderID");
+                    b.HasOne("Project_WebCoop.Models.Cart", "Cart")
+                        .WithMany("CartHistory")
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Project_WebCoop.Models.OrderHistory")
+                        .WithMany("CartItems")
+                        .HasForeignKey("OrderHistoryID");
 
                     b.HasOne("Project_WebCoop.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductID");
-
-                    b.HasOne("Project_WebCoop.Models.ApplicationUser", "User")
-                        .WithMany("CartDetails")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Project_WebCoop.Models.Individual", b =>
                 {
                     b.HasOne("Project_WebCoop.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Project_WebCoop.Models.Merchant", b =>
-                {
-                    b.HasOne("Project_WebCoop.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Project_WebCoop.Models.Order", b =>
                 {
-                    b.HasOne("Project_WebCoop.Models.ApplicationUser")
+                    b.HasOne("Project_WebCoop.Models.Cart", "Cart")
                         .WithMany("Orders")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Project_WebCoop.Models.OrderHistory", "OrderHistory")
+                        .WithOne("Order")
+                        .HasForeignKey("Project_WebCoop.Models.Order", "OrderHistoryID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Project_WebCoop.Models.Organization", b =>
+                {
+                    b.HasOne("Project_WebCoop.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Project_WebCoop.Models.Product", b =>
                 {
-                    b.HasOne("Project_WebCoop.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Project_WebCoop.Models.Merchant", "Merchant")
-                        .WithMany()
-                        .HasForeignKey("MerchantID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Project_WebCoop.Models.WishList")
                         .WithMany("WishItems")
                         .HasForeignKey("WishListID");
                 });
 
-            modelBuilder.Entity("Project_WebCoop.Models.ProductSale", b =>
+            modelBuilder.Entity("Project_WebCoop.Models.ProductCategory", b =>
                 {
-                    b.HasOne("Project_WebCoop.Models.Individual", "Buyer")
-                        .WithMany()
-                        .HasForeignKey("BuyerIndividualID");
+                    b.HasOne("Project_WebCoop.Models.Category", "Category")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Project_WebCoop.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductID");
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Project_WebCoop.Models.WishList", b =>
+            modelBuilder.Entity("Project_WebCoop.Models.SupplierProduct", b =>
                 {
-                    b.HasOne("Project_WebCoop.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                    b.HasOne("Project_WebCoop.Models.Product", "Product")
+                        .WithMany("SupplierProducts")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Project_WebCoop.Models.ApplicationUser", "Supplier")
+                        .WithMany("SupplierProducts")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

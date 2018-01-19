@@ -10,10 +10,18 @@
     <Compile Remove="Data\Migrations\20180112120639_TestingModels.Designer.cs" />
     <Compile Remove="Data\Migrations\20180112122317_TestingModels.cs" />
     <Compile Remove="Data\Migrations\20180112122317_TestingModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180113191910_TestingModels.cs" />
+    <Compile Remove="Data\Migrations\20180113191910_TestingModels.Designer.cs" />
     <Compile Remove="Data\Migrations\20180114143718_Add_DbSets.cs" />
     <Compile Remove="Data\Migrations\20180114143718_Add_DbSets.Designer.cs" />
     <Compile Remove="Data\Migrations\20180114174318_SeedData.cs" />
     <Compile Remove="Data\Migrations\20180114174318_SeedData.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180114174507_SeedData.cs" />
+    <Compile Remove="Data\Migrations\20180114174507_SeedData.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180114193843_Del_wishlist.cs" />
+    <Compile Remove="Data\Migrations\20180114193843_Del_wishlist.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180118180913_TestingCart.cs" />
+    <Compile Remove="Data\Migrations\20180118180913_TestingCart.Designer.cs" />
   </ItemGroup>
 
 

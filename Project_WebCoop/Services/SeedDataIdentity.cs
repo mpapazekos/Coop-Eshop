@@ -11,7 +11,7 @@ namespace Project_WebCoop.Services
 {
     public static class SeedDataIdentity
     {
-        public const string AdminName = "Admin@admin.com";
+        public const string AdminName = "admin@admin.com";
         public const string Password = "Data@7";
 
 
@@ -23,24 +23,6 @@ namespace Project_WebCoop.Services
             RoleManager<IdentityRole> roleManager = app.ApplicationServices
                 .GetRequiredService<RoleManager<IdentityRole>>();
 
-            ApplicationUser user = await userManager.FindByNameAsync(AdminName);
-            ApplicationUser merchant = await userManager.FindByNameAsync("merchant@merchant.com");
-
-
-            if (user == null)
-            {
-                user = new ApplicationUser
-                {
-                    UserName = AdminName,
-                    Email = "Admin@admin.com"
-                };
-
-
-                await userManager.CreateAsync(user, Password);
-            
-            }
-
-            //await userManager.AddToRoleAsync(user, "SuperAdmin");
 
             IdentityRole superAdminRole = await roleManager.FindByNameAsync("SuperAdmin");
             IdentityRole clientRole = await roleManager.FindByNameAsync("ClientRole");
@@ -49,8 +31,6 @@ namespace Project_WebCoop.Services
             if (superAdminRole == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("SuperAdmin"));
-
-                await userManager.AddToRoleAsync(user, "SuperAdmin");
             }
 
             if (clientRole == null)
@@ -61,6 +41,25 @@ namespace Project_WebCoop.Services
             if (merchantRole == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("MerchantRole"));
+            }
+
+            ApplicationUser user = await userManager.FindByNameAsync(AdminName);
+            ApplicationUser merchant = await userManager.FindByNameAsync("merchant@merchant.com");
+            ApplicationUser client = await userManager.FindByNameAsync("client@client.com");
+
+            if (user == null)
+            {
+                user = new ApplicationUser
+                {
+                    UserName = AdminName,
+                    Email = "admin@admin.com"
+                };
+
+
+                await userManager.CreateAsync(user, Password);
+
+                await userManager.AddToRoleAsync(user, "SuperAdmin");
+
             }
 
             if(merchant == null)
@@ -74,6 +73,22 @@ namespace Project_WebCoop.Services
                 await userManager.CreateAsync(merchant, "Data@7");
 
                 await userManager.AddToRoleAsync(merchant, "MerchantRole");
+            }
+
+            if(client == null)
+            {
+                client = new ApplicationUser
+                {
+                    UserName = "client@client.com",
+                    Email = "client@client.com",
+                    Cart = new Cart(),
+                    WishList = new WishList()
+                };
+
+                await userManager.CreateAsync(client, "Data@7");
+
+                await userManager.AddToRoleAsync(client, "ClientRole");
+
             }
             
         }

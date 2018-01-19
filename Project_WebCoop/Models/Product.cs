@@ -16,28 +16,19 @@ namespace Project_WebCoop.Models
         [Required(ErrorMessage = "Please enter a product description.")]
         public string Description { get; set; }
 
-        [Required]
-        [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive value.")]
-        public decimal Price { get; set; }
-
-        [Required]
-        public Category Category { get; set; }
-
-        [Required]
-        [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive value.")]
-        public decimal BoughtPrice { get; set; }
-     
-        [Required]
-        public Merchant Merchant  { get; set; }
-
-        public bool IsLive { get; set; }
-
-        public Availability Availability { get; set; }
-
-        public int QuantityInStock { get; set; }
-
         public string ImagePath { get; set; }
 
+        public ICollection<ProductCategory> ProductCategories { get; set; }
+
+        public ICollection<SupplierProduct> SupplierProducts { get; set; }
+
+        public Product() { }
+
+        public Product(string name, string description)
+        {
+            Name = name;
+            Description = description;
+        }
 
     }
 }
