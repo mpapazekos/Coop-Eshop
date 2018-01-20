@@ -160,13 +160,21 @@ namespace Project_WebCoop.Services
 
                 foreach (var item in MockUpProducts)
                 {
-                    MockUpSupplierProducts.Add(new SupplierProduct
+                    SupplierProduct tempProduct = new SupplierProduct
                     {
                         Supplier = SportStore.User,
                         Product = item,
                         IsLive = true,
-                        BasePrice = rand.Next(30, 2500),
                         Availability = "Available"
+                    };
+
+                    MockUpSupplierProducts.Add(tempProduct);
+
+                    ctx.BasePrices.Add(new BasePrice
+                    {
+                        Product = tempProduct,
+                        BaseUnitPrice = rand.Next(50, 5000),
+                        FromDate = DateTime.Now
                     });
                 }
 

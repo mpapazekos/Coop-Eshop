@@ -24,10 +24,9 @@ namespace Project_WebCoop.Models
         [ForeignKey("ProductID")]
         public Product Product { get; set; }
 
-        [Required]
-        public decimal BasePrice { get; set; }
+        public ICollection<BasePrice> BasePrices { get; set; }
 
-        public decimal SalePrice { get; set; }
+        public ICollection<SalePrice> SalePrices { get; set; }
 
         public string Availability { get; set; }
     

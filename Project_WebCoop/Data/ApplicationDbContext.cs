@@ -14,6 +14,8 @@ namespace Project_WebCoop.Data
         public DbSet<Organization> Organizations { get; set; }
 
         public DbSet<SupplierProduct> SupplierProducts { get; set; }
+        public DbSet<BasePrice> BasePrices { get; set; }
+        public DbSet<SalePrice> SalePrices { get; set; }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
