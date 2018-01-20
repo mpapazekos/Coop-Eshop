@@ -26,7 +26,6 @@ namespace Project_WebCoop.Controllers
         public IActionResult LiveProducts(int productPage = 1)
         {
             return View(new LiveProductsViewModel {
-
                 Products = _repository.Products
                               .Skip((productPage - 1) * PageSize)
                               .Take(PageSize),

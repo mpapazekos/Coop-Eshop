@@ -15,35 +15,27 @@
     <row class="row">
         <column class="col-md-2"></column>
         <column class="col-md-6 ">
-            @foreach (var product in Model.Products)
-            {
-                <card class="card" style="border-color:rebeccapurple;">
-                    <row class="row ">
+            <deck class="card-deck">
+                @foreach (var product in Model.Products)
+                {
 
-                        <column class="col-md-2">
-                            <img alt="Image goes here..">
-                        </column>
+                    <card class="card">
+                        <div class="card-header">
+                            @product.Name
+                        </div>
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">@product.Description</p>
+                        </div>
+                        <div class="card-footer align-content-center">
+                            <button class="btn btn-info" asp-controller="Product" asp-action="ProductDetails" asp-route-productId="@product.ProductID">
+                                View 
+                            </button>
+                        </div>
+                    </card>
 
-                        <column class="col-md-10 px-3">
-                            <div class="card-block px-3">
-                                <name class=" card-header bg-primary">
-                                    @product.Name
-                                </name>
-                                <p class="card-text bg-warning">@product.Description</p>
-                                <supplier class="text-center bg-info">
-                                    @product.Merchant.CompanyName
-                                </supplier>
-                            </div>
-
-                            <div class="card-footer">
-                                @*<a asp-controller="Cart" asp-action="AddtoCart" id="cartButton" class="btn btn-success"  asp-route-productId="@product.ProductID">Add to Cart</a>*@
-                                <a class="cartAdd btn btn-success" data-url="@Url.Action("AddToCart","Cart", new { productId = product.ProductID })">Add to Cart</a>
-                            </div>
-                        </column>
-                    </row>
-                </card>
-                <br />
-            }
+                 }
+            </deck>
         </column>
         <column class="col-md"></column>
     </row>
@@ -53,7 +45,7 @@
         <nav class="btn-group">
             @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
             {
-                <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" @*asp-route="category" asp-route-category="@Model.CurrentCategory" *@ asp-route-productPage="@i">@i</a>
+                <a class="btn @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")" @* asp-route="category" asp-route-category="@Model.CurrentCategory" *@ asp-route-productPage="@i">@i</a>
             }
         </nav>
     </row>

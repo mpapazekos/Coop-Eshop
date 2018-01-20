@@ -172,7 +172,7 @@ namespace Project_WebCoop.Services
 
                     ctx.BasePrices.Add(new BasePrice
                     {
-                        Product = tempProduct,
+                        SupplierProduct = tempProduct,
                         BaseUnitPrice = rand.Next(50, 5000),
                         FromDate = DateTime.Now
                     });

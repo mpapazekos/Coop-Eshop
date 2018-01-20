@@ -8,14 +8,14 @@ namespace Project_WebCoop.Services
 {
     public interface IProductRepository
     {
-        IQueryable<Product> Products { get; }
-        IQueryable<SupplierProduct> SupplierProducts { get; } 
+        IEnumerable<Product> Products { get; }
+        IEnumerable<SupplierProduct> SupplierProducts { get; } 
         
-        IQueryable<BasePrice> BasePrices { get;}
-        IQueryable<SalePrice> SalePrices { get;}
+        IEnumerable<BasePrice> BasePrices { get;}
+        IEnumerable<SalePrice> SalePrices { get;}
 
-        IQueryable<Category> Categories { get; }
-        IQueryable<ProductCategory> ProductCategories { get; }
+        IEnumerable<Category> Categories { get; }
+        IEnumerable<ProductCategory> ProductCategories { get; }
 
 
         void StoreNewProduct(Product product);

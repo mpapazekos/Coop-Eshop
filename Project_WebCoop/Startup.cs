@@ -64,7 +64,6 @@ namespace Project_WebCoop
 
             app.UseMvc(routes =>
             {
-         
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
@@ -74,3 +73,4 @@ namespace Project_WebCoop
         }
     }
 }
+

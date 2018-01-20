@@ -17,7 +17,6 @@ namespace Project_WebCoop.Models
         [Required(ErrorMessage = "Please enter a product description.")]
         public string Description { get; set; }
 
-
         [Required]
         public DateTime DateAdded;
 
@@ -37,6 +36,7 @@ namespace Project_WebCoop.Models
             Description = description;
         }
 
+        
         //[NotMapped]
         //public IEnumerable<Category> Categories => GetCategories();
 

@@ -16,19 +16,19 @@ namespace Project_WebCoop.Services
     
 
 
-        public IQueryable<Product> Products => _context.Products.Include(prod => prod.ProductCategories)
+        public IEnumerable<Product> Products => _context.Products.Include(prod => prod.ProductCategories)
                                                                 .Include(prod => prod.SupplierProducts);
 
-        public IQueryable<SupplierProduct> SupplierProducts => _context.SupplierProducts.Include(sp => sp.BasePrices)
+        public IEnumerable<SupplierProduct> SupplierProducts => _context.SupplierProducts.Include(sp => sp.BasePrices)
                                                                                         .Include(sp => sp.Supplier);
 
-        public IQueryable<BasePrice> BasePrices => _context.BasePrices.Include(bp => bp.SupplierProduct);
+        public IEnumerable<BasePrice> BasePrices => _context.BasePrices.Include(bp => bp.SupplierProduct);
 
-        public IQueryable<SalePrice> SalePrices => _context.SalePrices.Include(bp => bp.SupplierProduct);
+        public IEnumerable<SalePrice> SalePrices => _context.SalePrices.Include(bp => bp.SupplierProduct);
 
-        public IQueryable<Category> Categories => _context.Categories.Include(c => c.ProductCategories);
+        public IEnumerable<Category> Categories => _context.Categories.Include(c => c.ProductCategories);
 
-        public IQueryable<ProductCategory> ProductCategories => _context.ProductCategories.Include(pc => pc.Product)
+        public IEnumerable<ProductCategory> ProductCategories => _context.ProductCategories.Include(pc => pc.Product)
                                                                                           .Include(pc => pc.Category);
 
 

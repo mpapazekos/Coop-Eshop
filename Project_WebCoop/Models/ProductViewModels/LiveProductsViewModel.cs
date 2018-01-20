@@ -10,6 +10,8 @@ namespace Project_WebCoop.Models.ProductViewModels
     {
         public IEnumerable<Product> Products { get; set; }
 
+        public decimal MinPrice { get; set; }
+
         public PagingInfo PagingInfo { get; set; }
     }
 }
