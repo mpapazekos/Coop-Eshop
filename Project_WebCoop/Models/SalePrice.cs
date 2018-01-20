@@ -11,7 +11,7 @@ namespace Project_WebCoop.Models
         public int SalePriceID { get; set; }
 
         [Required]
-        public  SupplierProduct Product { get; set; }
+        public  SupplierProduct SupplierProduct { get; set; }
 
         [Required]
         public decimal SaleUnitPrice { get; set; }

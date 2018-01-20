@@ -24,12 +24,30 @@ namespace Project_WebCoop.Models
         [ForeignKey("ProductID")]
         public Product Product { get; set; }
 
-        public ICollection<BasePrice> BasePrices { get; set; }
+        public ICollection<BasePrice> BasePrices { get; set; } = new List<BasePrice>();
 
-        public ICollection<SalePrice> SalePrices { get; set; }
+        public ICollection<SalePrice> SalePrices { get; set; } = new List<SalePrice>();
+
+        public int Quantity;
 
         public string Availability { get; set; }
     
         public bool IsLive { get; set; }
+
+   
+        [NotMapped]
+        public BasePrice GetCurrentBasePrice => BasePrices.FirstOrDefault(bp => bp.ThroughDate == null);
+
+        [NotMapped]
+        public SalePrice GetCurrentSalePrice => SalePrices.FirstOrDefault(sp => sp.ThroughDate == null);
+
+
+
+        public void MakeAvailable() => Availability = "Available";
+
+        public void MakeLimited() => Availability = "Limited";
+
+        public void MakeNotAvailable() => Availability = "Not Available";
+
     }
 }

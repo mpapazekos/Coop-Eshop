@@ -12,44 +12,133 @@ namespace Project_WebCoop.Services
     {
         private ApplicationDbContext _context;
 
-        public ProductRepository(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public ProductRepository(ApplicationDbContext context) => _context = context;
+    
+
 
         public IQueryable<Product> Products => _context.Products.Include(prod => prod.ProductCategories)
                                                                 .Include(prod => prod.SupplierProducts);
 
-        public IQueryable<SupplierProduct> SupplierProducts => throw new NotImplementedException();
+        public IQueryable<SupplierProduct> SupplierProducts => _context.SupplierProducts.Include(sp => sp.BasePrices)
+                                                                                        .Include(sp => sp.Supplier);
 
-        public IQueryable<BasePrice> BasePrices => throw new NotImplementedException();
+        public IQueryable<BasePrice> BasePrices => _context.BasePrices.Include(bp => bp.SupplierProduct);
 
-        public IQueryable<SalePrice> SalePrices => throw new NotImplementedException();
+        public IQueryable<SalePrice> SalePrices => _context.SalePrices.Include(bp => bp.SupplierProduct);
 
-        public IQueryable<Category> Categories => throw new NotImplementedException();
+        public IQueryable<Category> Categories => _context.Categories.Include(c => c.ProductCategories);
 
-        public IQueryable<ProductCategory> ProductCategories => throw new NotImplementedException();
+        public IQueryable<ProductCategory> ProductCategories => _context.ProductCategories.Include(pc => pc.Product)
+                                                                                          .Include(pc => pc.Category);
 
-        public void AddNewProduct(Product product)
+
+        public void StoreNewProduct(Product product)
         {
             _context.AttachRange(product.ProductCategories, product.SupplierProducts);
             _context.Products.Add(product);
             _context.SaveChanges();
         }
 
-        public void DeleteProduct(Product product)
+        public void StoreNewSalePrice(SalePrice salePrice)
         {
-            throw new NotImplementedException();
+            _context.AttachRange(salePrice.SupplierProduct);
+            _context.SalePrices.Add(salePrice);
+            _context.SaveChanges();
         }
 
-        public void UpdateProduct(Product product)
+        public void StoreNewSupplierProduct(SupplierProduct supplierProduct)
         {
-            throw new NotImplementedException();
+            _context.AttachRange(supplierProduct.Product, supplierProduct.Supplier);
+            _context.SupplierProducts.Add(supplierProduct);
+            _context.SaveChanges();
         }
 
-        Product IProductRepository.AddNewProduct(Product product)
+        public void StoreNewBasePrice(BasePrice basePrice)
         {
-            throw new NotImplementedException();
+            _context.AttachRange(basePrice.SupplierProduct);
+            _context.BasePrices.Add(basePrice);
+            _context.SaveChanges();
+        }
+
+        public void StoreNewCategory(Category category)
+        {
+            _context.AttachRange(category.ProductCategories);
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+        }
+
+        
+
+        public Category GetCategoryByName(string categoryName)
+        {
+            return Categories.SingleOrDefault(c => c.CategoryName == categoryName);
+        }
+
+        public IEnumerable<ApplicationUser> GetCurrentSuppliers()
+        {
+            return SupplierProducts.Select(sp => sp.Supplier).Distinct();
+        }
+
+        public IEnumerable<SupplierProduct> GetLiveProducts()
+        {
+            return SupplierProducts.Where(sp => sp.IsLive == true);
+        }
+
+        public Product GetProductById(int productId)
+        {
+            return Products.SingleOrDefault(p => p.ProductID == productId);
+        }
+
+        public IEnumerable<SupplierProduct> FindByName(string productName)
+        {
+            return SupplierProducts.Where(sp => sp.Product.Name.Contains(productName));
+        }
+
+        public IEnumerable<SupplierProduct> GetProductsInCategory(string categoryName)
+        {
+           
+            return from sp in SupplierProducts
+                   join p in Products on sp.ProductID equals p.ProductID
+                   join pc in ProductCategories on p.ProductID equals pc.ProductID
+                   where pc.Category.CategoryName == categoryName
+                   select new SupplierProduct
+                   {
+                       Supplier = sp.Supplier,
+                       Product = p,
+                       BasePrices = sp.BasePrices,
+                       SalePrices = sp.SalePrices,
+                       Quantity = sp.Quantity,
+                       Availability = sp.Availability,
+                       IsLive = sp.IsLive
+                   };
+        }
+    
+        public IEnumerable<SupplierProduct> GetProductsFromSupplier(string supplierId)
+        {
+            return SupplierProducts.Where(sp => sp.UserID == supplierId);
+        }
+
+
+
+        public IEnumerable<BasePrice> GetBasePricesForProduct(int productId)
+        {
+            return BasePrices.Where(bp => bp.SupplierProduct.Product.ProductID == productId);
+        }
+
+        public IEnumerable<SalePrice> GetSalePricesForProduct(int productId)
+        {
+            return SalePrices.Where(sp => sp.SupplierProduct.ProductID == productId);
+        }
+
+        public IEnumerable<ApplicationUser> GetSuppliersForProduct(int productId)
+        {
+            return SupplierProducts.Where(sp => sp.ProductID == productId).Select(sp => sp.Supplier);
+        }
+
+        
+        public IEnumerable<SupplierProduct> GetSuppliedProducts(int productId)
+        {
+            return SupplierProducts.Where(sp => sp.ProductID == productId);
         }
     }
 }

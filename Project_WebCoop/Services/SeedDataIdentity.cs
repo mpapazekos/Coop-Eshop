@@ -234,9 +234,25 @@ namespace Project_WebCoop.Services
 
             }
 
-            
+            //ctx.Products.Add(new Product("Product2", "test2"));
 
+            //SupplierProduct TestSP = new SupplierProduct
+            //{
+            //    Product = new Product("Product3", "test3"),
+            //    Supplier = SportStore.User
+            //};
 
+            //TestSP.BasePrices.Add(new BasePrice {
+            //    Product = TestSP,
+            //    BaseUnitPrice = 10,
+            //    FromDate = DateTime.Now
+            //});
+
+            //ctx.SupplierProducts.Add(TestSP);
+
+            //ApplicationUser User = ctx.SupplierProducts.SingleOrDefault(sp => sp.Product.Name == "Kayak").Supplier;
+
+       
             ctx.SaveChanges();
         }
 

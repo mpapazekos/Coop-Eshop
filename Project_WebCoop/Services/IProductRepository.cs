@@ -18,8 +18,47 @@ namespace Project_WebCoop.Services
         IQueryable<ProductCategory> ProductCategories { get; }
 
 
-        void AddNewProduct(Product product);
-        void UpdateProduct(Product product);
-        void DeleteProduct(Product product);        
+        void StoreNewProduct(Product product);
+
+        void StoreNewSalePrice(SalePrice salePrice);
+
+        void StoreNewSupplierProduct(SupplierProduct supplierProduct);
+
+        void StoreNewBasePrice(BasePrice basePrice);
+
+        void StoreNewCategory(Category category);
+
+
+        Product GetProductById(int productId);
+        Category GetCategoryByName(string categoryName);
+
+
+        IEnumerable<ApplicationUser> GetCurrentSuppliers();
+
+
+        IEnumerable<SupplierProduct> GetLiveProducts();
+
+
+        IEnumerable<SupplierProduct> FindByName(string productName);
+
+
+        IEnumerable<SupplierProduct> GetProductsInCategory(string categoryName);
+
+
+        IEnumerable<SupplierProduct> GetProductsFromSupplier(string supplierId);
+
+
+        IEnumerable<BasePrice> GetBasePricesForProduct(int productId);
+
+
+        IEnumerable<SalePrice> GetSalePricesForProduct(int productId);
+
+
+        IEnumerable<ApplicationUser> GetSuppliersForProduct(int productId);
+
+
+        IEnumerable<SupplierProduct> GetSuppliedProducts(int productId);
+      
+
     }
 }

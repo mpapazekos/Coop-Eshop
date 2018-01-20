@@ -11,7 +11,7 @@ namespace Project_WebCoop.Models
         public int BasePriceID { get; set; }
 
         [Required]
-        public SupplierProduct Product { get; set; }
+        public SupplierProduct SupplierProduct { get; set; }
 
         [Required]
         public decimal BaseUnitPrice { get; set; }

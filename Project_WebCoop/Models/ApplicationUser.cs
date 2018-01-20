@@ -21,6 +21,6 @@ namespace Project_WebCoop.Models
         public WishList WishList { get; set; }
 
         // If user has merchant role.
-        public ICollection<SupplierProduct> SupplierProducts { get; set; }
+        public ICollection<SupplierProduct> SupplierProducts { get; set; } = new List<SupplierProduct>();
     }
 }
