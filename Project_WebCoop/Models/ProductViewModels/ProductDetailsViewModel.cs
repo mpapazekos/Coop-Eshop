@@ -12,5 +12,7 @@ namespace Project_WebCoop.Models.ProductViewModels
 
         public IEnumerable<SupplierProduct> SupplierProducts { get; set;}
 
+        public int CartId { get; set; }
+
     }
 }

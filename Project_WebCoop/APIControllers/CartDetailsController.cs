@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,13 +12,15 @@ using Project_WebCoop.Services;
 
 //namespace Project_WebCoop.APIControllers
 //{
+
 //    [Produces("application/json")]
 //    [Route("api/CartDetails")]
+//    [Authorize(Roles="ClientRole")]
 //    public class CartDetailsController : Controller
 //    {
-//        private readonly ICartDetailsRepository _repository;
+//        private readonly IOrderRepository _repository;
 
-//        public CartDetailsController(ICartDetailsRepository repository) => _repository = repository;
+//        public CartDetailsController(IOrderRepository repository) => _repository = repository;
 
 
 //        // GET: api/CartDetails
@@ -63,7 +66,7 @@ using Project_WebCoop.Services;
 //                item.Quantity--;
 //                _repository.DeleteCartDetails(item);
 //            }
-           
+
 //            return Json(new { id = item.CartDetailsID, quantity = item.Quantity, cost = item.Cost });
 //        }
 

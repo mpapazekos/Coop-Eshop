@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project_WebCoop.Models;
 using Project_WebCoop.Models.ProductViewModels;
@@ -11,12 +12,19 @@ namespace Project_WebCoop.Controllers
 {
     public class ProductController : Controller
     {
-        private IProductRepository _repository;
+        private IOrderRepository _orderRepository;
+        private IProductRepository _productRepository;
+        private UserManager<ApplicationUser> _userManager;
+
         private int PageSize = 3;
 
-        public  ProductController(IProductRepository repository)
+        public  ProductController(UserManager<ApplicationUser> userManager,
+            IProductRepository productRepository,
+            IOrderRepository orderRepository)
         {
-            _repository = repository;
+            _productRepository = productRepository;
+            _orderRepository = orderRepository;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -28,29 +36,37 @@ namespace Project_WebCoop.Controllers
         {
             return View(new LiveProductsViewModel {
 
-                Products = _repository.Products
+                Products = _productRepository.Products
                               .Skip((productPage - 1) * PageSize)
                               .Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = _repository.Products.Count()
+                    TotalItems = _productRepository.Products.Count()
                 }
 
             } );
         }
 
-        public IActionResult ProductDetails(int productId)
+        public async Task<IActionResult> ProductDetails(int productId)
         {
+            int cartId = await GetUserCart();
 
             return View(new ProductDetailsViewModel
             {
-                MainProduct = _repository.GetProductById(productId),
-                SupplierProducts = _repository.GetSuppliedProducts(productId)
+                MainProduct = _productRepository.GetProductById(productId),
+                SupplierProducts = _productRepository.GetSuppliedProducts(productId),
+                CartId = cartId
             });
         }
 
+        private async Task<int> GetUserCart()
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            return _orderRepository.Carts.SingleOrDefault(c => c.Client.Id.Equals(user.Id)).CartID;
+        }
         
     }
 }
