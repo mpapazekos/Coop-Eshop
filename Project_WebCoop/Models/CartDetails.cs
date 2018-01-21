@@ -12,7 +12,7 @@ namespace Project_WebCoop.Models
         public int CartDetailsID { get; set; }
 
         [Required]
-        public Product Product { get; set; }
+        public SupplierProduct SupplierProduct { get; set; }
 
         [Required]
         public Cart Cart { get; set; }

@@ -32,33 +32,24 @@ namespace Project_WebCoop.Services
         Product GetProductById(int productId);
         Category GetCategoryByName(string categoryName);
 
+        IEnumerable<string> GetCategoryNames();
 
         IEnumerable<ApplicationUser> GetCurrentSuppliers();
 
-
         IEnumerable<SupplierProduct> GetLiveProducts();
-
 
         IEnumerable<SupplierProduct> FindByName(string productName);
 
-
         IEnumerable<SupplierProduct> GetProductsInCategory(string categoryName);
-
 
         IEnumerable<SupplierProduct> GetProductsFromSupplier(string supplierId);
 
+        IEnumerable<SupplierProduct> GetSuppliedProducts(int productId);
 
         IEnumerable<BasePrice> GetBasePricesForProduct(int productId);
 
-
         IEnumerable<SalePrice> GetSalePricesForProduct(int productId);
 
-
         IEnumerable<ApplicationUser> GetSuppliersForProduct(int productId);
-
-
-        IEnumerable<SupplierProduct> GetSuppliedProducts(int productId);
-      
-
     }
 }

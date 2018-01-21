@@ -43,10 +43,6 @@ namespace Project_WebCoop.Controllers
 
         public IActionResult ProductDetails(int productId)
         {
-            //Product MainProduct = _repository.GetProductById(productId);
-            //List<SupplierProduct> SupplierProducts = _repository.GetSuppliedProducts(productId).ToList();
-
-
 
             return View(new ProductDetailsViewModel
             {

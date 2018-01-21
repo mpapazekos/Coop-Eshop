@@ -14,17 +14,17 @@ namespace Project_WebCoop.Models
         [Required]
         public ApplicationUser Client { get; set; }
 
-        public ICollection<CartDetails> CartHistory { get; set; } = new List<CartDetails>();
+        public ICollection<CartDetails> CartHistory { get; set; } 
 
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
-
-        [NotMapped]
-        public IEnumerable<CartDetails> CurrentCart => CartHistory.Where(ci => ci.DateRemoved != null);
+        public ICollection<Order> Orders { get; set; }
 
         [NotMapped]
-        public IEnumerable<CartDetails> OldCart => CartHistory.Where(ci => ci.DateRemoved == null);
+        public IEnumerable<CartDetails> CurrentCart => CartHistory.Where(ci => !ci.DateRemoved.Equals(default(DateTime)));
 
+        [NotMapped]
+        public IEnumerable<CartDetails> OldCart => CartHistory.Where(ci => ci.DateRemoved.Equals(default(DateTime)));
 
+        
         public void RemoveItems()
         {
             foreach(var item in CurrentCart)

@@ -39,7 +39,7 @@ namespace Project_WebCoop
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<ICartDetailsRepository, CartDetailsRepository>();
+
 
             services.AddMvc();
         }

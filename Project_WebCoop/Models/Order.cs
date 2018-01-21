@@ -20,5 +20,7 @@ namespace Project_WebCoop.Models
         public DateTime OrderDate { get; set; }
 
         public decimal TotalCost { get; set; }
+
+
     }
 }

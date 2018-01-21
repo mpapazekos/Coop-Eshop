@@ -76,6 +76,11 @@ namespace Project_WebCoop.Services
             return Categories.SingleOrDefault(c => c.CategoryName == categoryName);
         }
 
+        public IEnumerable<string> GetCategoryNames()
+        {
+            return Categories.Select(c => c.CategoryName);
+        }
+
         public IEnumerable<ApplicationUser> GetCurrentSuppliers()
         {
             return SupplierProducts.Select(sp => sp.Supplier).Distinct();

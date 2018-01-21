@@ -33,7 +33,6 @@ namespace Project_WebCoop.Models
 
         [NotMapped]
         public Organization GetOrganization => Organizations.SingleOrDefault(org => org.User.Equals(this));
-
-      
+  
     }
 }

@@ -15,16 +15,14 @@ namespace Project_WebCoop.Controllers
     //[Route("api/cartdetails")]
     public class CartController : Controller
     {
-        private ICartDetailsRepository _cartRepository;
-        private IProductRepository _productRepository;
+
+        private IOrderRepository _repository;
         private UserManager<ApplicationUser> _userManager;
 
-        public CartController(UserManager<ApplicationUser> userManager,
-            ICartDetailsRepository cartRepo,
-            IProductRepository productRepo)
+        public CartController(UserManager<ApplicationUser> userManager, IOrderRepository repo)
         {
-            _cartRepository = cartRepo;
-            _productRepository = productRepo;
+
+            _repository = repo;
             _userManager = userManager;
         }
 
@@ -33,70 +31,69 @@ namespace Project_WebCoop.Controllers
             return await _userManager.GetUserAsync(User);
         }
 
-        //public async Task<IActionResult> CartDetails()
-        //{
-        //    var user = await GetCurrentUser();
+        public async Task<IActionResult> CartDetails()
+        {
+            var user = await GetCurrentUser();
 
 
-        //    return View(_cartRepository.CartDetails.Where(cd => cd.User.Id == user.Id));
-        //}
+            return View(_repository.GetCartDetails(user.Id));
+        }
 
-    //    public async Task<IActionResult> AddToCart(int productId)
-    //    {
-    //        // Get user.
-    //        var user = await GetCurrentUser();
+        //    public async Task<IActionResult> AddToCart(int productId)
+        //    {
+        //        // Get user.
+        //        var user = await GetCurrentUser();
 
-    //        // Get cart item if in user's cart.
-    //        CartDetails cartItem = _cartRepository.CartDetails
-    //            .SingleOrDefault(item => item.User.Equals(user) && item.Product.ProductID == productId);
+        //        // Get cart item if in user's cart.
+        //        CartDetails cartItem = _cartRepository.CartDetails
+        //            .SingleOrDefault(item => item.User.Equals(user) && item.Product.ProductID == productId);
 
-    //        // if item not in cart, add new item.
-    //        if(cartItem == null)
-    //        {
-    //            var product = _productRepository.Products.SingleOrDefault(p => p.ProductID == productId);
+        //        // if item not in cart, add new item.
+        //        if(cartItem == null)
+        //        {
+        //            var product = _productRepository.Products.SingleOrDefault(p => p.ProductID == productId);
 
-    //            _cartRepository.StoreCartDetails(new CartDetails(product, 1);
-    //        } 
-    //        else
-    //        {
-    //            cartItem.Quantity++;
-    //            _cartRepository.UpdateCartDetails(cartItem);
-    //        }
+        //            _cartRepository.StoreCartDetails(new CartDetails(product, 1);
+        //        } 
+        //        else
+        //        {
+        //            cartItem.Quantity++;
+        //            _cartRepository.UpdateCartDetails(cartItem);
+        //        }
 
-    //         return Json(cartItem.Product.Name);
-    //    }
+        //         return Json(cartItem.Product.Name);
+        //    }
 
-    //    public async Task<IActionResult> RemoveFromCart(int detailsId)
-    //    {
-    //        // Get user.
-    //        var user = await GetCurrentUser();
+        //    public async Task<IActionResult> RemoveFromCart(int detailsId)
+        //    {
+        //        // Get user.
+        //        var user = await GetCurrentUser();
 
-    //        // Get CartDetails of user.
-    //        CartDetails cartItem = _cartRepository.CartDetails
-    //            .SingleOrDefault(item => item.User.Equals(user) && item.CartDetailsID == detailsId);
+        //        // Get CartDetails of user.
+        //        CartDetails cartItem = _cartRepository.CartDetails
+        //            .SingleOrDefault(item => item.User.Equals(user) && item.CartDetailsID == detailsId);
 
-           
 
-    //        if (cartItem.Quantity == 1)
-    //        {
-    //            // Remove item from cartDetails
-    //            _cartRepository.DeleteCartDetails(cartItem);
-    //        }
-    //        else
-    //        {
-    //            cartItem.Quantity--;
-    //            cartItem.Cost -= cartItem.Cost;
-    //            _cartRepository.UpdateCartDetails(cartItem);
-    //        }
 
-    //        var results = new CartDetailsRemoveViewModel
-    //        {
-    //            ItemCount = cartItem.Quantity,
-    //            DeleteId = detailsId
-    //        };
+        //        if (cartItem.Quantity == 1)
+        //        {
+        //            // Remove item from cartDetails
+        //            _cartRepository.DeleteCartDetails(cartItem);
+        //        }
+        //        else
+        //        {
+        //            cartItem.Quantity--;
+        //            cartItem.Cost -= cartItem.Cost;
+        //            _cartRepository.UpdateCartDetails(cartItem);
+        //        }
 
-    //        return Json(results);
-    //    }
+        //        var results = new CartDetailsRemoveViewModel
+        //        {
+        //            ItemCount = cartItem.Quantity,
+        //            DeleteId = detailsId
+        //        };
 
+        //        return Json(results);
+        //    }
     }
 }
