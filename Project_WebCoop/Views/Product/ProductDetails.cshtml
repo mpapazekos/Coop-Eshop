@@ -1,0 +1,48 @@
+﻿@model ProductDetailsViewModel
+
+
+<h1>ProductDetails</h1>
+
+<main class=" container-fluid">
+ 
+    <row class="row">
+        <LeftColumn class="col-md-2">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <a class="btn btn-outline-danger">Add To Wishlist</a>
+                </div>
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.MainProduct.Name</h5>
+                    <p class="card-text">@Model.MainProduct.Description</p>
+                </div>
+            </div>
+        </LeftColumn>
+        <MidColumn class="col-md-2"></MidColumn>
+
+        <RightColumn class="col-md-6">
+           
+
+               
+                         @foreach (var item in Model.SupplierProducts)
+                          {
+                            <div class="card">
+                                <top class="card-header">
+                                    @item.Supplier.GetOrganization.CompanyName
+                                </top>
+                                <main class="card-body">
+                                    @item.GetCurrentBasePrice.BaseUnitPrice
+                                </main>
+                                <bottom class="card-footer">
+                                    <button class="cartButton btn btn-outline-success">
+                                        Add to Cart
+                                    </button>
+                                </bottom>
+                            </div>
+
+                        }
+                
+
+        </RightColumn>
+    </row>
+</main>

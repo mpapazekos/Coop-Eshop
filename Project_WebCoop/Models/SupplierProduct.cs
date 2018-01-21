@@ -24,9 +24,9 @@ namespace Project_WebCoop.Models
         [ForeignKey("ProductID")]
         public Product Product { get; set; }
 
-        public ICollection<BasePrice> BasePrices { get; set; } = new List<BasePrice>();
+        public ICollection<BasePrice> BasePrices { get; set; }
 
-        public ICollection<SalePrice> SalePrices { get; set; } = new List<SalePrice>();
+        public ICollection<SalePrice> SalePrices { get; set; } 
 
         public int Quantity;
 
@@ -36,10 +36,10 @@ namespace Project_WebCoop.Models
 
    
         [NotMapped]
-        public BasePrice GetCurrentBasePrice => BasePrices.FirstOrDefault(bp => bp.ThroughDate == null);
+        public BasePrice GetCurrentBasePrice => BasePrices.FirstOrDefault(bp => bp.ThroughDate.Equals(default(DateTime)));
 
         [NotMapped]
-        public SalePrice GetCurrentSalePrice => SalePrices.FirstOrDefault(sp => sp.ThroughDate == null);
+        public SalePrice GetCurrentSalePrice => SalePrices.FirstOrDefault(sp => sp.ThroughDate.Equals(default(DateTime)));
 
 
 

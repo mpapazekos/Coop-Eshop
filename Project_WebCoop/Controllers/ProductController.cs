@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Project_WebCoop.Models;
 using Project_WebCoop.Models.ProductViewModels;
 using Project_WebCoop.Services;
 
@@ -26,6 +27,7 @@ namespace Project_WebCoop.Controllers
         public IActionResult LiveProducts(int productPage = 1)
         {
             return View(new LiveProductsViewModel {
+
                 Products = _repository.Products
                               .Skip((productPage - 1) * PageSize)
                               .Take(PageSize),
@@ -35,7 +37,22 @@ namespace Project_WebCoop.Controllers
                     ItemsPerPage = PageSize,
                     TotalItems = _repository.Products.Count()
                 }
+
             } );
+        }
+
+        public IActionResult ProductDetails(int productId)
+        {
+            //Product MainProduct = _repository.GetProductById(productId);
+            //List<SupplierProduct> SupplierProducts = _repository.GetSuppliedProducts(productId).ToList();
+
+
+
+            return View(new ProductDetailsViewModel
+            {
+                MainProduct = _repository.GetProductById(productId),
+                SupplierProducts = _repository.GetSuppliedProducts(productId)
+            });
         }
 
         

@@ -200,18 +200,18 @@ namespace Project_WebCoop.Data.Migrations
 
                     b.Property<DateTime>("FromDate");
 
-                    b.Property<int>("ProductID");
+                    b.Property<int>("SupplierProductID");
 
-                    b.Property<int>("ProductSupplierProductID");
+                    b.Property<int>("SupplierProductProductID");
 
-                    b.Property<string>("ProductUserID")
+                    b.Property<string>("SupplierProductUserID")
                         .IsRequired();
 
                     b.Property<DateTime>("ThroughDate");
 
                     b.HasKey("BasePriceID");
 
-                    b.HasIndex("ProductSupplierProductID", "ProductUserID", "ProductID");
+                    b.HasIndex("SupplierProductID", "SupplierProductUserID", "SupplierProductProductID");
 
                     b.ToTable("BasePrices");
                 });
@@ -399,20 +399,20 @@ namespace Project_WebCoop.Data.Migrations
 
                     b.Property<DateTime>("FromDate");
 
-                    b.Property<int>("ProductID");
-
-                    b.Property<int>("ProductSupplierProductID");
-
-                    b.Property<string>("ProductUserID")
-                        .IsRequired();
-
                     b.Property<decimal>("SaleUnitPrice");
+
+                    b.Property<int>("SupplierProductID");
+
+                    b.Property<int>("SupplierProductProductID");
+
+                    b.Property<string>("SupplierProductUserID")
+                        .IsRequired();
 
                     b.Property<DateTime>("ThroughDate");
 
                     b.HasKey("SalePriceID");
 
-                    b.HasIndex("ProductSupplierProductID", "ProductUserID", "ProductID");
+                    b.HasIndex("SupplierProductID", "SupplierProductUserID", "SupplierProductProductID");
 
                     b.ToTable("SalePrices");
                 });
@@ -507,9 +507,9 @@ namespace Project_WebCoop.Data.Migrations
 
             modelBuilder.Entity("Project_WebCoop.Models.BasePrice", b =>
                 {
-                    b.HasOne("Project_WebCoop.Models.SupplierProduct", "Product")
+                    b.HasOne("Project_WebCoop.Models.SupplierProduct", "SupplierProduct")
                         .WithMany("BasePrices")
-                        .HasForeignKey("ProductSupplierProductID", "ProductUserID", "ProductID")
+                        .HasForeignKey("SupplierProductID", "SupplierProductUserID", "SupplierProductProductID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -533,7 +533,7 @@ namespace Project_WebCoop.Data.Migrations
             modelBuilder.Entity("Project_WebCoop.Models.Individual", b =>
                 {
                     b.HasOne("Project_WebCoop.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Individuals")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -554,7 +554,7 @@ namespace Project_WebCoop.Data.Migrations
             modelBuilder.Entity("Project_WebCoop.Models.Organization", b =>
                 {
                     b.HasOne("Project_WebCoop.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Organizations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -581,9 +581,9 @@ namespace Project_WebCoop.Data.Migrations
 
             modelBuilder.Entity("Project_WebCoop.Models.SalePrice", b =>
                 {
-                    b.HasOne("Project_WebCoop.Models.SupplierProduct", "Product")
+                    b.HasOne("Project_WebCoop.Models.SupplierProduct", "SupplierProduct")
                         .WithMany("SalePrices")
-                        .HasForeignKey("ProductSupplierProductID", "ProductUserID", "ProductID")
+                        .HasForeignKey("SupplierProductID", "SupplierProductUserID", "SupplierProductProductID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

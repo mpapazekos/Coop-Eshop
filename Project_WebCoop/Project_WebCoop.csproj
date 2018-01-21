@@ -24,6 +24,10 @@
     <Compile Remove="Data\Migrations\20180118180913_TestingCart.Designer.cs" />
     <Compile Remove="Data\Migrations\20180119172015_ManyToManyID.cs" />
     <Compile Remove="Data\Migrations\20180119172015_ManyToManyID.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180120105729_Add_TotalCost-Order.cs" />
+    <Compile Remove="Data\Migrations\20180120105729_Add_TotalCost-Order.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180120224710_Add_To-AppUser_OrgIndv.cs" />
+    <Compile Remove="Data\Migrations\20180120224710_Add_To-AppUser_OrgIndv.Designer.cs" />
   </ItemGroup>
 
 

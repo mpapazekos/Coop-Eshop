@@ -13,7 +13,7 @@ namespace Project_WebCoop.Services
 
         void StoreCartDetails(CartDetails item);
         void UpdateCartDetails(CartDetails item);
-        void  DeleteCartDetails(CartDetails item);
+        void DeleteCartDetails(CartDetails item);
        
     }
 }

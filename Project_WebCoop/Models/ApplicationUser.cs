@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -21,6 +22,18 @@ namespace Project_WebCoop.Models
         public WishList WishList { get; set; }
 
         // If user has merchant role.
-        public ICollection<SupplierProduct> SupplierProducts { get; set; } = new List<SupplierProduct>();
+        public ICollection<SupplierProduct> SupplierProducts { get; set; } 
+
+        public ICollection<Organization> Organizations { get; set; } 
+
+        public ICollection<Individual> Individuals { get; set; } 
+
+        [NotMapped]
+        public Individual GetIndividual => Individuals.SingleOrDefault(indv => indv.User.Equals(this));
+
+        [NotMapped]
+        public Organization GetOrganization => Organizations.SingleOrDefault(org => org.User.Equals(this));
+
+      
     }
 }

@@ -20,7 +20,9 @@ namespace Project_WebCoop.Services
                                                                 .Include(prod => prod.SupplierProducts);
 
         public IEnumerable<SupplierProduct> SupplierProducts => _context.SupplierProducts.Include(sp => sp.BasePrices)
-                                                                                        .Include(sp => sp.Supplier);
+                                                                                         .Include(sp => sp.SalePrices)
+                                                                                         .Include(sp => sp.Supplier)
+                                                                                             .ThenInclude(u => u.Organizations);
 
         public IEnumerable<BasePrice> BasePrices => _context.BasePrices.Include(bp => bp.SupplierProduct);
 

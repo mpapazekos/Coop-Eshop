@@ -115,6 +115,8 @@ namespace Project_WebCoop.Services
                  );
             }
 
+            ctx.SaveChanges();
+
             Category WaterSportsCtg = ctx.Categories.SingleOrDefault(c => c.CategoryName == "WaterSports");
             Category SoccerCtg = ctx.Categories.SingleOrDefault(c => c.CategoryName == "Soccer");
             Category ChessCtg = ctx.Categories.SingleOrDefault(c => c.CategoryName == "Chess");
